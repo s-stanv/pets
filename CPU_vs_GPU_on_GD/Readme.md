@@ -9,31 +9,31 @@
 **Данные:**  
 Синтетическая линейная регрессия  
 
-![y = X w_true + ε](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20y%20%3D%20X%20w_%7Btrue%7D%20%2B%20%5Cvarepsilon)
+![y = X w_true + ε](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20y%20%3D%20X%20w_%7Btrue%7D%20%2B%20%5Cvarepsilon)
 
 где  
-![\varepsilon \sim \mathcal{N}(0, 0.1^2)](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20%5Cvarepsilon%20%5Csim%20%5Cmathcal%7BN%7D(0%2C%200.1%5E2))
+![\varepsilon \sim \mathcal{N}(0, 0.1^2)](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20%5Cvarepsilon%20%5Csim%20%5Cmathcal%7BN%7D(0%2C%200.1%5E2))
 
 Размерность по умолчанию:  
-![N = 20000](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20N%20%3D%2020000) объектов,  
-![D = 128](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20D%20%3D%20128) признаков.
+![N = 20000](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20N%20%3D%2020000) объектов,  
+![D = 128](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20D%20%3D%20128) признаков.
 
 ---
 
 **Функция потерь:**  
-![MSE(w) = \frac{1}{N} \sum_i (x_i^T w - y_i)^2](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20MSE(w)%20%3D%20%5Cfrac%7B1%7D%7BN%7D%20%5Csum_i%20(x_i%5ET%20w%20-%20y_i)%5E2)
+![MSE(w) = \frac{1}{N} \sum_i (x_i^T w - y_i)^2](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20MSE(w)%20%3D%20%5Cfrac%7B1%7D%7BN%7D%20%5Csum_i%20(x_i%5ET%20w%20-%20y_i)%5E2)
 
 **Градиент:**  
-![\nabla_w MSE = \frac{2}{N} X^T (X w - y)](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20%5Cnabla_w%20MSE%20%3D%20%5Cfrac%7B2%7D%7BN%7D%20X%5ET(Xw-y))
+![\nabla_w MSE = \frac{2}{N} X^T (X w - y)](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20%5Cnabla_w%20MSE%20%3D%20%5Cfrac%7B2%7D%7BN%7D%20X%5ET(Xw-y))
 
 ---
 
 ## Оптимизаторы
 
-- **SGD:** полная (batch) версия — на каждом шаге считается градиент по всему ![X](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20X).  
-- **RMSProp:** экспоненциальное сглаживание второго момента градиента (![\beta_2](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20%5Cbeta_2)), деление шага на корень из накопленного момента.  
+- **SGD:** полная (batch) версия — на каждом шаге считается градиент по всему ![X](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20X).  
+- **RMSProp:** экспоненциальное сглаживание второго момента градиента (![\beta_2](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20%5Cbeta_2)), деление шага на корень из накопленного момента.  
 - **Adam:** адаптивный шаг с моментами первого и второго порядков  
-  (![\beta_1, \beta_2](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20%5Cbeta_1%2C%20%5Cbeta_2)) и bias-correction.
+  (![\beta_1, \beta_2](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20%5Cbeta_1%2C%20%5Cbeta_2)) и bias-correction.
 
 **Защита от численной неустойчивости:**  
 - глобальный clip градиента (по L2-норме),  
@@ -56,11 +56,12 @@ time_cpu_ms, loss_cpu, time_gpu_ms, loss_gpu
 
 **Сравнение ведётся по метрике:**
 
-- ![Loss = MSE](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20Loss%20%3D%20MSE)
+- ![Loss = MSE](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20Loss%20%3D%20MSE)
 - или  
-  ![Excess\ Loss = Loss - floor](https://latex.codecogs.com/svg.image?%5Ccolor%7Bwhite%7D%20Excess%5C%20Loss%20%3D%20Loss%20-%20floor)
+  ![Excess\ Loss = Loss - floor](https://latex.codecogs.com/svg.image?%5Ccolor%7B%23999999%7D%20Excess%5C%20Loss%20%3D%20Loss%20-%20floor)
 
 (разность относительно минимального хвостового уровня).
+
 
 Визуализация
 - Один экран с тремя графиками (SGD, RMSProp, Adam) в один горизонтальный ряд. Заголовок окна содержит названия видеокарты (GPU) и процессора (CPU), определяемые автоматически.
