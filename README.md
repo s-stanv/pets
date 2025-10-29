@@ -3,6 +3,6 @@
 Набор небольших экспериментов и учебных задач. Каждый проект — в своей папке с отдельной инструкцией.
 
 Текущий проект:
-- CPU vs GPU on gradient descent — сравнение оптимизаторов (SGD, RMSProp, Adam) на GPU (CUDA) и CPU. Подробнее: [подкаталог](CPU%20vs%20GPU%20on%20gradient%20descent/Readme.md)
+- CPU vs GPU on gradient descent — сравнение оптимизаторов (SGD, RMSProp, Adam) на GPU (CUDA) и CPU. Подробнее: [CPU vs GPU on GD](CPU%20vs%20GPU%20on%20gradient%20descent/Readme.md)
 
 Как начать: откройте нужную папку и следуйте её README.
