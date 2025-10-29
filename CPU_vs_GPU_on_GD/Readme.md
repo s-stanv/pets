@@ -1,10 +1,10 @@
 # CUDA Optimizers (SGD, RMSProp, Adam): GPU vs CPU
 
-Сравнение сходимости классических оптимизаторов (SGD, RMSProp, Adam) на CPU и GPU (CUDA) при минимизации MSE. Бинарник пишет логи в CSV, а скрипты строят графики.
-
 <img width="640" height="480" alt="Figure_2" src="https://github.com/user-attachments/assets/0d4c4f8c-edf0-4346-92b2-b5ee93277607" />
 <img width="640" height="478" alt="Figure_1" src="https://github.com/user-attachments/assets/9204cc1d-ac44-42c4-be4f-c3173071ac59" />
 <img width="640" height="480" alt="Figure_3" src="https://github.com/user-attachments/assets/b8a7fa1d-ce12-4df7-bf61-ef3db98267cb" />
+
+Сравнение сходимости классических оптимизаторов (SGD, RMSProp, Adam) на CPU и GPU (CUDA) при минимизации MSE. Бинарник пишет логи в CSV, а скрипты строят графики.
 
 ## Требования
 - CUDA Toolkit 11+ (проверено на 13.x)
