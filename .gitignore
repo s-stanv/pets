@@ -1,5 +1,21 @@
-/venv
-/build
-/.vscode
+# Editor/IDE
+.vscode/
+.vs/
+.idea/
 
-cuda/build/
+# Top-level virtualenv (if any)
+/venv/
+
+# Top-level build (if any)
+/build/
+
+# Project-specific ignores
+CPU_vs_GPU_on_GD/build/
+CPU_vs_GPU_on_GD/.venv/
+CPU_vs_GPU_on_GD/**/__pycache__/
+CPU_vs_GPU_on_GD/**/logs/
+
+# CMake artifacts (general)
+**/CMakeFiles/
+**/CMakeCache.txt
+

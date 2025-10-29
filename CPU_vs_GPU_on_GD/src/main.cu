@@ -16,6 +16,14 @@ OptimizerConfig cfg_rms  { 1e-2f, 0.9f, 0.99f,  1e-8f, 0.0f, 200 };
 OptimizerConfig cfg_adam { 5e-3f, 0.9f, 0.999f, 1e-8f, 0.0f, 800 };
 
 int main() {
+    try {
+        // Check CUDA device early to produce a clear message on unsupported systems
+        ensure_cuda_device();
+    } catch (const std::exception& ex) {
+        std::cerr << "[GPU unavailable] " << ex.what() << "\n"
+                  << "Falling back: build and plots can still be generated from CPU logs only.\n";
+        // Note: we continue; GPU sections below may fail, but this gives a clue up front
+    }
     // --- Данные ---
     const int N = 20000;  // samples
     const int D = 128;    // features

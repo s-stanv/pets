@@ -4,7 +4,16 @@ project(cuda_optimizers LANGUAGES CXX CUDA)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CUDA_STANDARD 17)
 
-set(CMAKE_CUDA_ARCHITECTURES 89)
+# Portable GPU targets
+# Prefer native when supported; otherwise cover common recent SMs.
+if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES OR CMAKE_CUDA_ARCHITECTURES STREQUAL "")
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.23)
+    set(CMAKE_CUDA_ARCHITECTURES native)
+  else()
+    # Turing(75), Ampere(86), Ada(89)
+    set(CMAKE_CUDA_ARCHITECTURES 75 86 89)
+  endif()
+endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

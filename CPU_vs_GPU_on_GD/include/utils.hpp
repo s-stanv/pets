@@ -51,6 +51,8 @@ void  cuda_free(void* ptr);
 void  cuda_memcpy_h2d(void* dst, const void* src, size_t bytes);
 void  cuda_memcpy_d2h(void* dst, const void* src, size_t bytes);
 void  cuda_check_last_error(const char* tag);
+// Early device presence/info check (throws std::runtime_error on failure)
+void  ensure_cuda_device();
 
 // Проверка NaN/Inf на устройстве
 bool device_has_nan_or_inf(const float* d_arr, int n);

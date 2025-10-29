@@ -1,4 +1,4 @@
-#include "utils.hpp"
+﻿#include "utils.hpp"
 
 #include <random>
 #include <fstream>
@@ -9,6 +9,7 @@
 
 // CUDA runtime
 #include <cuda_runtime.h>
+#include <sstream>
 
 // ------------------- Хост-утилиты -------------------
 Dataset make_synthetic_lr(int N, int D, unsigned seed, float noise_std) {
@@ -92,6 +93,29 @@ double CpuTimer::toc_ms() const {
 }
 
 // ------------------- CUDA helpers -------------------
+void ensure_cuda_device() {
+    // Print versions first so they appear even if device query fails
+    int drv = 0, rt = 0;
+    (void)cudaDriverGetVersion(&drv);
+    (void)cudaRuntimeGetVersion(&rt);
+    auto fmt_ver = [](int v){ int major=v/1000; int minor=(v%1000)/10; std::ostringstream s; s<<major<<"."<<minor; return s.str(); };
+    std::cout << "CUDA runtime: " << fmt_ver(rt) << ", driver API: " << fmt_ver(drv) << "\n";
+    if (drv && rt && drv < rt) {
+        std::cerr << "[Warning] Driver is older than runtime; kernels may fail to launch.\n";
+    }
+
+    int count = 0;
+    cudaError_t e = cudaGetDeviceCount(&count);
+    if (e != cudaSuccess || count <= 0) {
+        std::ostringstream os;
+        os << "No CUDA device available: " << cudaGetErrorString(e);
+        throw std::runtime_error(os.str());
+    }
+    int dev = 0;
+    cudaDeviceProp p{};
+    cudaGetDeviceProperties(&p, dev);
+    std::cout << "CUDA device: " << p.name << " (SM " << p.major << p.minor << ")\n";
+}
 void* cuda_malloc(size_t bytes) { void* p = nullptr; cudaMalloc(&p, bytes); return p; }
 void  cuda_free(void* ptr) { cudaFree(ptr); }
 void  cuda_memcpy_h2d(void* dst, const void* src, size_t bytes) { cudaMemcpy(dst, src, bytes, cudaMemcpyHostToDevice); }
@@ -169,3 +193,4 @@ float mse_and_grad_cuda(const float* d_X, const float* d_y, int N, int D,
     cuda_check_last_error("mse_and_grad_cuda");
     return loss;
 }
+

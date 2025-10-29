@@ -3,9 +3,6 @@ from pathlib import Path
 from typing import Optional
 import sys
 import pandas as pd
-import matplotlib
-
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator, MaxNLocator, ScalarFormatter
 
@@ -36,6 +33,7 @@ def main() -> int:
     ap.add_argument('--logs', type=str, default=None, help='Path to logs directory (containing *.csv)')
     ap.add_argument('--metric', type=str, default='loss', choices=['loss','excess'],
                     help="What to plot on Y: raw 'loss' or 'excess' = loss minus noise floor (>=0)")
+    ap.add_argument('--save', action='store_true', help='Save plots to PNG instead of showing')
     args = ap.parse_args()
 
     logs_dir = find_logs_dir(args.logs)
@@ -103,11 +101,16 @@ def main() -> int:
         ax.grid(True, which='major', linewidth=0.8, alpha=0.35)
         ax.grid(True, which='minor', linewidth=0.5, alpha=0.18)
         fig.tight_layout()
-        out_path = logs_dir / f'{name.lower()}_convergence.png'
-        fig.savefig(out_path, dpi=200)
-        plt.close(fig)
+        if args.save:
+            out_path = logs_dir / f'{name.lower()}_convergence.png'
+            fig.savefig(out_path, dpi=200)
+            plt.close(fig)
 
-    print(f'Saved plots to {logs_dir}/*.png')
+    if args.save:
+        print(f'Saved plots to {logs_dir}/*.png')
+    else:
+        # Show all figures on screen; blocks until windows are closed
+        plt.show()
     return 0
 
 
