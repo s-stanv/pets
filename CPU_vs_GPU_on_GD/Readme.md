@@ -1,5 +1,7 @@
 # CUDA Optimizers (SGD, RMSProp, Adam): GPU vs CPU
 
+<img width="1500" height="450" alt="Figure_1" src="https://github.com/user-attachments/assets/3fc0bc71-b9e7-4e4e-9557-a444b2ac3db4" />
+
 Сравнение сходимости и скорости классических оптимизаторов (SGD, RMSProp, Adam) на CPU и GPU (CUDA) при решении задачи линейной регрессии методом минимизации средней квадратичной ошибки (MSE).
 
 Что моделируем
