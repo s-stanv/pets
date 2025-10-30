@@ -1,7 +1,7 @@
 # CUDA Optimizers (SGD, RMSProp, Adam): GPU vs CPU
 Сравнение сходимости и скорости классических оптимизаторов (SGD, RMSProp, Adam) на CPU и GPU (CUDA) при решении задачи линейной регрессии методом минимизации средней квадратичной ошибки (MSE).
 
-## Тесты на разных машинах:
+# Тесты на разных машинах:
 Core i5 10x vs Geforce GTX 3050
 <img width="1500" height="450" alt="Figure_1" src="https://github.com/user-attachments/assets/3fc0bc71-b9e7-4e4e-9557-a444b2ac3db4" />
 Core i5 12x vs Geforce GTX 5060 Ti
