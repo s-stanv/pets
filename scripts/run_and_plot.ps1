@@ -63,7 +63,27 @@ if ($Generator -eq 'Auto') {
 # Configure + build
 Write-Host "Configuring and building in: $buildDir" -ForegroundColor Cyan
 if ($hasPresets) {
-  $hasExistingCache = Test-Path (Join-Path $buildDir 'CMakeCache.txt')
+  $cachePath = Join-Path $buildDir 'CMakeCache.txt'
+  $hasExistingCache = Test-Path $cachePath
+  if ($hasExistingCache) {
+    # If cache belongs to a different source tree, wipe build dir to avoid cmake re-run with wrong source
+    try {
+      $homeLine = Select-String -Path $cachePath -Pattern '^CMAKE_HOME_DIRECTORY:INTERNAL=(.+)$' -AllMatches | Select-Object -First 1
+      if ($homeLine) {
+        $cachedHome = $homeLine.Matches[0].Groups[1].Value
+        $normCached = (Resolve-Path $cachedHome -ErrorAction SilentlyContinue)
+        $normRoot   = (Resolve-Path $projectRoot)
+        $sameHome = $false
+        if ($normCached) { $sameHome = ($normCached.Path.TrimEnd('\\') -ieq $normRoot.Path.TrimEnd('\\')) }
+        if (-not $sameHome) {
+          Write-Host "Stale CMake cache detected (points to: $cachedHome). Cleaning '$buildDir'." -ForegroundColor Yellow
+          Remove-Item -Recurse -Force $buildDir -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
+          $hasExistingCache = $false
+        }
+      }
+    } catch { }
+  }
   if ($hasExistingCache) {
     # Reuse existing build tree without reconfiguring to avoid generator/platform mismatch
     switch ($Generator) {

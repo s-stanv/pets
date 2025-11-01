@@ -10,10 +10,10 @@
 /build/
 
 # Project-specific ignores
-CPU_vs_GPU_on_GD/build/
-CPU_vs_GPU_on_GD/.venv/
-CPU_vs_GPU_on_GD/**/__pycache__/
-CPU_vs_GPU_on_GD/**/logs/
+/build/
+/.venv/
+/**/__pycache__/
+/**/logs/
 
 # CMake artifacts (general)
 **/CMakeFiles/
